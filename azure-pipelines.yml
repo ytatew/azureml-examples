@@ -34,13 +34,13 @@ jobs:
     displayName: Submit AzureML Job Task
     inputs:
       azureSubscription: $(service-connection)
-      workingDirectory: 'cli/jobs/pipelines-with-components/nyc_taxi_data_regression'
+      # workingDirectory: 'cli/jobs/pipelines-with-components/nyc_taxi_data_regression'
       scriptLocation: inlineScript
       scriptType: bash
       inlineScript: |
       
         # submit component job and get the run name
-        job_name=$(az ml job create --file single-job-pipeline.yml -g $(resource-group) -w $(workspace) --query name --output tsv)
+        job_name=$(az ml job create -f cli/jobs/pipelines-with-components/nyc_taxi_data_regression/single-job-pipeline.yml -g $(resource-group) -w $(workspace) --query name --output tsv)
 
         # Set output variable for next task
         echo "##vso[task.setvariable variable=JOB_NAME;isOutput=true;]$job_name"
